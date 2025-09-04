@@ -1,0 +1,77 @@
+[gd_scene load_steps=11 format=3 uid="uid://lpbvw6rqlbrf"]
+
+[ext_resource type="Script" uid="uid://doqjwkdflojou" path="res://pong/paddle.gd" id="1_f7obv"]
+[ext_resource type="Script" uid="uid://db304aw16r1x8" path="res://pong/pong.gd" id="1_teprw"]
+[ext_resource type="Texture2D" uid="uid://cev2dk0b6i5pq" path="res://pong/paddle.png" id="2_1hw3o"]
+[ext_resource type="Script" uid="uid://d305oqxtf41c0" path="res://pong/ball.gd" id="3_g8uh0"]
+[ext_resource type="Texture2D" uid="uid://bvi6cygorodpc" path="res://icon.svg" id="4_fif4v"]
+[ext_resource type="Script" uid="uid://d4aqylg8sfw1i" path="res://pong/net.gd" id="5_fif4v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g8uh0"]
+size = Vector2(1215.78, 106.301)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fif4v"]
+size = Vector2(881.531, 45)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_teprw"]
+size = Vector2(40, 39.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_one0h"]
+size = Vector2(46, 711)
+
+[node name="Pong" type="Node2D"]
+script = ExtResource("1_teprw")
+
+[node name="paddle" type="CharacterBody2D" parent="."]
+position = Vector2(89, 325)
+rotation = 1.55848
+scale = Vector2(0.206452, 0.376289)
+script = ExtResource("1_f7obv")
+
+[node name="image" type="Sprite2D" parent="paddle"]
+position = Vector2(9.6875, 0)
+scale = Vector2(1.0293, 0.732877)
+texture = ExtResource("2_1hw3o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="paddle"]
+position = Vector2(0, 2.65753)
+shape = SubResource("RectangleShape2D_g8uh0")
+
+[node name="wall2" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall2"]
+position = Vector2(511, 39)
+shape = SubResource("RectangleShape2D_fif4v")
+
+[node name="wall" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall"]
+position = Vector2(514.234, 532)
+shape = SubResource("RectangleShape2D_fif4v")
+
+[node name="ball" type="CharacterBody2D" parent="."]
+script = ExtResource("3_g8uh0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ball"]
+position = Vector2(416, 285.25)
+shape = SubResource("RectangleShape2D_teprw")
+
+[node name="Spirte2D" type="Sprite2D" parent="ball"]
+position = Vector2(417, 286)
+scale = Vector2(0.351562, 0.34375)
+texture = ExtResource("4_fif4v")
+
+[node name="Net" type="Area2D" parent="."]
+script = ExtResource("5_fif4v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Net"]
+position = Vector2(987, 272)
+shape = SubResource("RectangleShape2D_one0h")
+
+[node name="Net2" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Net2"]
+position = Vector2(34, 280)
+shape = SubResource("RectangleShape2D_one0h")
+
+[connection signal="body_entered" from="Net" to="Net" method="_on_body_entered"]
